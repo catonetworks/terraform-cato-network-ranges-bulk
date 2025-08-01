@@ -1,0 +1,9 @@
+site_id,interface_index,name,range_type,subnet,local_ip,gateway,vlan,translated_subnet,internet_only,mdns_reflector,dhcp_type,dhcp_ip_range,dhcp_relay_group_id,dhcp_relay_group_name,dhcp_microsegmentation
+12345,INT_5,Net1Routed,Routed,10.0.1.0/24,,192.169.11.2,,172.167.1.0/24,,,,,,,
+12345,INT_5,Net1Routed,Routed,10.0.2.0/24,,192.169.11.3,,,TRUE,,,,,,
+12345,INT_5,Net3Direct,Direct,10.0.3.0/24,10.0.3.1,,,172.167.3.0/24,,TRUE,,,,,
+12345,INT_5,NetVLAN4,VLAN,10.0.4.0/24,10.0.4.1,,4,,,,DHCP_DISABLED,,,,
+12345,INT_5,NetVLAN5,VLAN,10.0.5.0/24,10.0.5.1,,5,172.167.5.0/24,,,ACCOUNT_DEFAULT,,,,
+12345,INT_5,NetVLAN6,VLAN,10.0.6.0/24,10.0.6.1,,6,172.167.6.0/24,,,DHCP_RELAY,,,dhcp_relay1,
+12345,INT_5,NetVLAN7,VLAN,10.0.7.0/24,10.0.7.1,,7,,,,DHCP_RELAY,,3365,,
+12345,INT_5,NetVLAN8,VLAN,10.0.8.0/24,10.0.8.1,,8,172.167.8.0/24,,,DHCP_RANGE,10.0.8.100-10.0.8.200,,,TRUE
