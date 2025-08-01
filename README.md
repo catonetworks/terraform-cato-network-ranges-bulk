@@ -30,7 +30,7 @@ export CATO_ACCOUNT_ID="your-account-id"
 
 ```hcl
 module "network_ranges" {
-  source             = "github.com/catonetworks/terraform-cato-network-ranges-bulk"
+  source             = "catonetworks/terraform-cato-network-ranges-bulk/cato"
   network_range_data = csvdecode(file("${path.module}/network_ranges.csv"))
 }
 ```
@@ -39,7 +39,7 @@ module "network_ranges" {
 
 ```hcl
 module "network_ranges" {
-  source             = "github.com/catonetworks/terraform-cato-network-ranges-bulk"
+  source             = "catonetworks/terraform-cato-network-ranges-bulk/cato"
   network_range_data = jsondecode(file("${path.module}/network_ranges.json"))
 }
 ```
@@ -51,7 +51,7 @@ terraform {
   required_providers {
     cato = {
       source  = "catonetworks/cato"
-      version = "~> 0.0.38"
+      version = "~> 0.0.39"
     }
   }
 }
@@ -61,7 +61,7 @@ provider "cato" {
 }
 
 module "network_ranges" {
-  source             = "github.com/catonetworks/terraform-cato-network-ranges-bulk"
+  source             = "catonetworks/terraform-cato-network-ranges-bulk/cato"
   network_range_data = csvdecode(file("${path.module}/network_ranges.csv"))
 }
 
