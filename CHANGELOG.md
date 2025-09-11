@@ -10,7 +10,8 @@
 ### Features
 - Fixed readme examples
 
-## 0.0.3 (2025-09-11)
+## 0.0.4 (2025-09-11)
 
 ### Features
 - Upated module to support all available attributes to populate network_ranges including gateway, translated_subnet, etc
+- Updated versions files to use latest published provider
