@@ -14,7 +14,7 @@ This Terraform module allows you to create multiple Cato network ranges in bulk 
 ## Prerequisites
 
 - Terraform >= 1.0
-- Cato Terraform Provider >= 0.0.38
+- Cato Terraform Provider >= 0.0.39
 - Valid Cato API token and Account ID
 
 ## Required Environment Variables
@@ -140,8 +140,8 @@ site_id,interface_index,name,range_type,subnet,local_ip,gateway,vlan,translated_
 
 You can find sample data files in the repository:
 
-- [network_ranges.csv](https://github.com/catonetworks/terraform-cato-network-ranges-bulk/sample_data/network_ranges.csv) - Sample CSV format
-- [network_ranges.json](https://github.com/catonetworks/terraform-cato-network-ranges-bulk/sample_data/network_ranges.json) - Sample JSON format
+- [network_ranges.csv](https://github.com/catonetworks/terraform-cato-network-ranges-bulk/blob/main/sample_data/network_ranges.csv) - Sample CSV format
+- [network_ranges.json](https://github.com/catonetworks/terraform-cato-network-ranges-bulk/blob/main/sample_data/network_ranges.json) - Sample JSON format
 
 ## DHCP Configuration Types
 

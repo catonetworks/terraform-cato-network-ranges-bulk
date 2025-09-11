@@ -16,11 +16,11 @@ variable "interface_index" {
   default     = null
   validation {
     condition = var.interface_index == null || contains([
-      "WAN1", "WAN2", "LAN1", "LAN2", "LTE", "USB1", "USB2",
+      "WAN1", "WAN2", "LAN", "LAN1", "LAN2", "LTE", "USB1", "USB2",
       "INT_1", "INT_2", "INT_3", "INT_4", "INT_5", "INT_6", "INT_7", "INT_8",
       "INT_9", "INT_10", "INT_11", "INT_12", "INT_13", "INT_14", "INT_15", "INT_16"
     ], var.interface_index)
-    error_message = "interface_index must be one of: WAN1, WAN2, LAN1, LAN2, LTE, USB1, USB2, INT_1 to INT_16, or null."
+    error_message = "interface_index must be one of: WAN1, WAN2, LAN, LAN1, LAN2, LTE, USB1, USB2, INT_1 to INT_16, or null."
   }
 }
 
