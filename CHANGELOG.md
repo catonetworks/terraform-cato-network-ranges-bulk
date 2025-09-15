@@ -15,3 +15,7 @@
 ### Features
 - Upated module to support all available attributes to populate network_ranges including gateway, translated_subnet, etc
 - Updated versions files to use latest published provider
+
+## 0.0.5 (2025-09-15)
+
+- Updated versions for specific version of provider 
