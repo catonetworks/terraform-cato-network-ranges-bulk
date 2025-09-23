@@ -1,4 +1,31 @@
 locals {
+  # Validation for Routed network ranges - they should not have DHCP configuration fields with values
+  routed_dhcp_validation = {
+    for idx, row in var.network_range_data : idx => {
+      is_routed = row.range_type == "Routed"
+      has_invalid_dhcp_settings = (
+        (row.dhcp_ip_range != null && row.dhcp_ip_range != "") ||
+        (row.dhcp_relay_group_id != null && row.dhcp_relay_group_id != "") ||
+        (row.dhcp_relay_group_name != null && row.dhcp_relay_group_name != "") ||
+        (row.dhcp_microsegmentation != null && row.dhcp_microsegmentation != false && lower(tostring(row.dhcp_microsegmentation)) == "true")
+      )
+      error_message = "Routed network range '${row.name}' (${row.subnet}) cannot have DHCP configuration fields (dhcp_ip_range, dhcp_relay_group_id, dhcp_relay_group_name, dhcp_microsegmentation) set to non-empty/non-false values. For Routed ranges, only dhcp_type can be empty, DHCP_DISABLED, or ACCOUNT_DEFAULT."
+    }
+  }
+
+  # Trigger validation errors for invalid Routed ranges
+  validation_errors = [
+    for idx, validation in local.routed_dhcp_validation :
+    validation.error_message
+    if validation.is_routed && validation.has_invalid_dhcp_settings
+  ]
+
+  # Use regex to force an error if there are validation issues
+  validation_check = length(local.validation_errors) > 0 ? regex(
+    join("\n", local.validation_errors), 
+    "validation_failed"
+  ) : "validation_passed"
+
   network_ranges = [for row in var.network_range_data : {
     id                 = row.id
     site_id            = row.site_id
