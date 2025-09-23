@@ -18,9 +18,9 @@ resource "cato_network_range" "with_dhcp" {
   
   dhcp_settings = {
     dhcp_type              = var.dhcp_settings.dhcp_type
-    ip_range               = var.dhcp_settings.ip_range
-    relay_group_id         = var.dhcp_settings.relay_group_id
-    relay_group_name       = var.dhcp_settings.relay_group_name
+    ip_range               = var.dhcp_settings.dhcp_type != "DHCP_DISABLED" && var.dhcp_settings.ip_range != null && var.dhcp_settings.ip_range != "" ? var.dhcp_settings.ip_range : null
+    relay_group_id         = var.dhcp_settings.dhcp_type == "DHCP_RELAY" && var.dhcp_settings.relay_group_id != null && var.dhcp_settings.relay_group_id != "" ? var.dhcp_settings.relay_group_id : null
+    relay_group_name       = var.dhcp_settings.dhcp_type == "DHCP_RELAY" && var.dhcp_settings.relay_group_name != null && var.dhcp_settings.relay_group_name != "" ? var.dhcp_settings.relay_group_name : null
     dhcp_microsegmentation = var.dhcp_settings.dhcp_microsegmentation
   }
 }

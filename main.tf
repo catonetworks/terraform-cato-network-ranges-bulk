@@ -15,9 +15,9 @@ locals {
     mdns_reflector     = row.mdns_reflector == null ? false : (row.mdns_reflector == true || lower(tostring(row.mdns_reflector)) == "true") && row.range_type != "Routed"
     dhcp_settings = (row.dhcp_type != null && row.dhcp_type != "") ? {
       dhcp_type              = row.dhcp_type
-      ip_range               = (row.dhcp_ip_range != null && row.dhcp_ip_range != "") ? row.dhcp_ip_range : null
-      relay_group_id         = (row.dhcp_relay_group_id != null && row.dhcp_relay_group_id != "") ? row.dhcp_relay_group_id : null
-      relay_group_name       = (row.dhcp_relay_group_name != null && row.dhcp_relay_group_name != "") ? row.dhcp_relay_group_name : null
+      ip_range               = (row.dhcp_type != "DHCP_DISABLED" && row.dhcp_ip_range != null && row.dhcp_ip_range != "") ? row.dhcp_ip_range : null
+      relay_group_id         = (row.dhcp_type == "DHCP_RELAY" && row.dhcp_relay_group_id != null && row.dhcp_relay_group_id != "") ? row.dhcp_relay_group_id : null
+      relay_group_name       = (row.dhcp_type == "DHCP_RELAY" && row.dhcp_relay_group_name != null && row.dhcp_relay_group_name != "") ? row.dhcp_relay_group_name : null
       dhcp_microsegmentation = row.dhcp_microsegmentation == null ? false : (row.dhcp_microsegmentation == true || lower(tostring(row.dhcp_microsegmentation)) == "true")
     } : null
   }]
@@ -25,7 +25,7 @@ locals {
 
 module "network_range" {
   source             = "./modules/network_range"
-  for_each           = { for network_range in local.network_ranges : "${network_range.interface_index}-${replace(network_range.name, " ", "_")}" => network_range }
+  for_each           = { for idx, network_range in local.network_ranges : "${network_range.interface_index}-${replace(network_range.name, " ", "_")}-${idx}" => network_range }
   
   site_id            = each.value.site_id
   interface_id       = each.value.interface_id
