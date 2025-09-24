@@ -19,3 +19,11 @@
 ## 0.0.5 (2025-09-15)
 
 - Updated versions for specific version of provider 
+
+## 0.0.6 (2025-09-24)
+- DHCP Settings: Fixed DHCP relay group processing to only set `relay_group_id` and `relay_group_name` when `dhcp_type` is "DHCP_RELAY"
+- DHCP Settings: Fixed `ip_range` field to only be set when `dhcp_type` is not "DHCP_DISABLED"
+- API Compatibility: Resolved Cato API error "configuring relayGroupId is allowed only for DHCP_RELAY DHCP type"
+- Added comprehensive validation for Routed network ranges to prevent invalid DHCP configuration
+- Enhanced support and logic for Routed network ranges
+- Improved resource key generation to include index for better uniqueness and resource management
