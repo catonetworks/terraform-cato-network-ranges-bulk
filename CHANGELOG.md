@@ -27,3 +27,9 @@
 - Added comprehensive validation for Routed network ranges to prevent invalid DHCP configuration
 - Enhanced support and logic for Routed network ranges
 - Improved resource key generation to include index for better uniqueness and resource management
+
+## 0.0.7 (2025-09-24)
+- DHCP Settings: Fixed DHCP relay group processing to only set `relay_group_id` and `relay_group_name` when `dhcp_type` is "DHCP_RELAY"
+
+## 0.0.8 (2025-10-23)
+- Incrementing TF version to 1.13 and provider to 0.0.47 to address comples csv parsing string mapping required in newer versions
