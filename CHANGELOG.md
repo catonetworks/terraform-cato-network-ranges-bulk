@@ -34,5 +34,5 @@
 ## 0.0.8 (2025-10-23)
 - Incrementing TF version to 1.13 and provider to 0.0.47 to address comples csv parsing string mapping required in newer versions
 
-## 0.0.9 (2025-01-13)
+## 0.0.9 (2025-01-15)
 - Incrementing version of provider to 58 to align with updates made in network_range resource
