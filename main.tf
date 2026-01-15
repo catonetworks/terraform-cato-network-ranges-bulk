@@ -52,7 +52,10 @@ locals {
 
 module "network_range" {
   source             = "./modules/network_range"
-  for_each           = { for idx, network_range in local.network_ranges : "${network_range.interface_index}-${replace(network_range.name, " ", "_")}-${idx}" => network_range }
+  # Use ID if available (for imports), otherwise use a combination that's less likely to collide
+  for_each           = { for idx, network_range in local.network_ranges :
+    try(network_range.id, null) != null && try(network_range.id, null) != "" ? network_range.id : "${network_range.interface_index}-${replace(network_range.name, " ", "_")}-${replace(network_range.subnet, "/", "_")}" => network_range
+  }
   
   site_id            = each.value.site_id
   interface_id       = each.value.interface_id
