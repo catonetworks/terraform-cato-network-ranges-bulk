@@ -52,9 +52,9 @@ locals {
 
 module "network_range" {
   source             = "./modules/network_range"
-  # Index by network range name for readability in state
+  # Index by network range name with index for uniqueness
   for_each           = { for idx, network_range in local.network_ranges :
-    network_range.name => network_range
+    "${network_range.name}_${idx}" => network_range
   }
   
   site_id            = each.value.site_id

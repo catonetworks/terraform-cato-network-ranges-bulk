@@ -36,3 +36,6 @@
 
 ## 0.0.9 (2025-01-15)
 - Incrementing version of provider to 58 to align with updates made in network_range resource
+
+## 0.0.10 (2026-01-16)
+- Reverted indexing back to using names to accommodate new creation of records and impoorts of existing sites into terraform
