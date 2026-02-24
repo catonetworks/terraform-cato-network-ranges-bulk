@@ -39,3 +39,6 @@
 
 ## 0.0.10 (2026-01-16)
 - Reverted indexing back to using names to accommodate new creation of records and impoorts of existing sites into terraform
+
+## 0.0.11 (2026-02-23)
+- Updated module to support logic for interface index for default LAN interface
