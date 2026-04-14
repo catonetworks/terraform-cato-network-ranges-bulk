@@ -42,3 +42,6 @@
 
 ## 0.0.11 (2026-02-23)
 - Updated module to support logic for interface index for default LAN interface
+
+## 0.0.12 (2026-04-14)
+- Refactored import to support DHCP and non DHCP ranges

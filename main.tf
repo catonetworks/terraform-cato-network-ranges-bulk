@@ -4,10 +4,10 @@ locals {
     for idx, row in var.network_range_data : idx => {
       is_routed = row.range_type == "Routed"
       has_invalid_dhcp_settings = (
-        (row.dhcp_ip_range != null && row.dhcp_ip_range != "") ||
-        (row.dhcp_relay_group_id != null && row.dhcp_relay_group_id != "") ||
-        (row.dhcp_relay_group_name != null && row.dhcp_relay_group_name != "") ||
-        (row.dhcp_microsegmentation != null && row.dhcp_microsegmentation != false && lower(tostring(row.dhcp_microsegmentation)) == "true")
+        (try(row.dhcp_ip_range, null) != null && try(row.dhcp_ip_range, "") != "") ||
+        (try(row.dhcp_relay_group_id, null) != null && try(row.dhcp_relay_group_id, "") != "") ||
+        (try(row.dhcp_relay_group_name, null) != null && try(row.dhcp_relay_group_name, "") != "") ||
+        (try(row.dhcp_microsegmentation, null) != null && try(row.dhcp_microsegmentation, false) != false && lower(tostring(try(row.dhcp_microsegmentation, false))) == "true")
       )
       error_message = "Routed network range '${row.name}' (${row.subnet}) cannot have DHCP configuration fields (dhcp_ip_range, dhcp_relay_group_id, dhcp_relay_group_name, dhcp_microsegmentation) set to non-empty/non-false values. For Routed ranges, only dhcp_type can be empty, DHCP_DISABLED, or ACCOUNT_DEFAULT."
     }
@@ -27,25 +27,25 @@ locals {
   ) : "validation_passed"
 
   network_ranges = [for row in var.network_range_data : {
-    id                 = row.id
+    # id                 = row.id
     site_id            = row.site_id
     interface_id       = try(row.interface_id, null)
     interface_index    = row.interface_index
     name               = row.name
     range_type         = row.range_type
     subnet             = row.subnet
-    local_ip           = (row.local_ip != null && row.local_ip != "") ? row.local_ip : null
-    gateway            = (row.gateway != null && row.gateway != "") ? row.gateway : null
-    vlan               = (row.vlan != null && row.vlan != "") ? tonumber(row.vlan) : null
-    translated_subnet  = (row.translated_subnet != null && row.translated_subnet != "") ? row.translated_subnet : null
-    internet_only      = row.internet_only == null ? false : (row.internet_only == true || lower(tostring(row.internet_only)) == "true")
-    mdns_reflector     = row.mdns_reflector == null ? false : (row.mdns_reflector == true || lower(tostring(row.mdns_reflector)) == "true") && row.range_type != "Routed"
-    dhcp_settings = (row.dhcp_type != null && row.dhcp_type != "") ? {
+    local_ip           = (try(row.local_ip, null) != null && try(row.local_ip, "") != "") ? row.local_ip : null
+    gateway            = (try(row.gateway, null) != null && try(row.gateway, "") != "") ? row.gateway : null
+    vlan               = (try(row.vlan, null) != null && try(row.vlan, "") != "") ? tonumber(row.vlan) : null
+    translated_subnet  = (try(row.translated_subnet, null) != null && try(row.translated_subnet, "") != "") ? row.translated_subnet : null
+    internet_only      = try(row.internet_only, null) == null ? false : (row.internet_only == true || lower(tostring(row.internet_only)) == "true")
+    mdns_reflector     = try(row.mdns_reflector, null) == null ? false : (row.mdns_reflector == true || lower(tostring(row.mdns_reflector)) == "true") && row.range_type != "Routed"
+    dhcp_settings = (try(row.dhcp_type, null) != null && try(row.dhcp_type, "") != "") ? {
       dhcp_type              = row.dhcp_type
-      ip_range               = (row.dhcp_type != "DHCP_DISABLED" && row.dhcp_ip_range != null && row.dhcp_ip_range != "") ? row.dhcp_ip_range : null
-      relay_group_id         = (row.dhcp_type == "DHCP_RELAY" && row.dhcp_relay_group_id != null && row.dhcp_relay_group_id != "") ? row.dhcp_relay_group_id : null
-      relay_group_name       = (row.dhcp_type == "DHCP_RELAY" && row.dhcp_relay_group_name != null && row.dhcp_relay_group_name != "") ? row.dhcp_relay_group_name : null
-      dhcp_microsegmentation = row.dhcp_microsegmentation == null ? false : (row.dhcp_microsegmentation == true || lower(tostring(row.dhcp_microsegmentation)) == "true")
+      ip_range               = (row.dhcp_type != "DHCP_DISABLED" && try(row.dhcp_ip_range, null) != null && try(row.dhcp_ip_range, "") != "") ? row.dhcp_ip_range : null
+      relay_group_id         = (row.dhcp_type == "DHCP_RELAY" && try(row.dhcp_relay_group_id, null) != null && try(row.dhcp_relay_group_id, "") != "") ? row.dhcp_relay_group_id : null
+      relay_group_name       = (row.dhcp_type == "DHCP_RELAY" && try(row.dhcp_relay_group_name, null) != null && try(row.dhcp_relay_group_name, "") != "") ? row.dhcp_relay_group_name : null
+      dhcp_microsegmentation = try(row.dhcp_microsegmentation, null) == null ? false : (row.dhcp_microsegmentation == true || lower(tostring(row.dhcp_microsegmentation)) == "true")
     } : null
   }]
 }
