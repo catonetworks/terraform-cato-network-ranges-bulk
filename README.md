@@ -20,8 +20,8 @@ This Terraform module allows you to create multiple Cato network ranges in bulk 
 ## Required Environment Variables
 
 ```bash
-export CATO_TOKEN="your-cato-api-token"
-export CATO_ACCOUNT_ID="your-account-id"
+export TF_VAR_CATO_TOKEN="your-cato-api-token"
+export TF_VAR_CATO_ACCOUNT_ID="your-account-id"
 ```
 
 ## Usage
@@ -54,7 +54,7 @@ terraform {
       version = ">= 0.0.70"
     }
   }
-  required_version = ">= 0.13"
+  required_version = ">= 1.5"
 }
 
 provider "cato" {
@@ -221,8 +221,8 @@ For issues and questions:
 ## Requirements
 
 | Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| ---- | ------- |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
 | <a name="requirement_cato"></a> [cato](#requirement\_cato) | >= 0.0.70 |
 
 ## Providers
@@ -232,7 +232,7 @@ No providers.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_network_range"></a> [network\_range](#module\_network\_range) | ./modules/network_range | n/a |
 
 ## Resources
@@ -242,13 +242,13 @@ No resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_network_range_data"></a> [network\_range\_data](#input\_network\_range\_data) | Network range data - can be CSV decoded data or JSON array with flat structure | `any` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_configuration_summary"></a> [configuration\_summary](#output\_configuration\_summary) | Summary of all network range configurations |
 | <a name="output_creation_summary"></a> [creation\_summary](#output\_creation\_summary) | Summary of the bulk network range creation process |
 | <a name="output_dhcp_count_by_type"></a> [dhcp\_count\_by\_type](#output\_dhcp\_count\_by\_type) | Count of DHCP configurations by type |
